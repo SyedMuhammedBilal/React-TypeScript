@@ -16,8 +16,15 @@ const App:React.FC = () => {
 
   const handleSubmit = (e: FormElem):void => {
     e.preventDefault();
+    addTodo(value)
     setValue('')
   }
+
+  const addTodo = (text: string) => {
+    const newTodo: ITodo[] = [...todo, {text, completed: false}];
+    setTodo(newTodo);
+  }
+  console.log(todo);
 
   return (
     <React.Fragment>
@@ -26,6 +33,16 @@ const App:React.FC = () => {
         <input value={value} type='text' onChange={e => setValue(e.target.value)} />
         <button type='submit'>Add Todo</button>
       </form>
+      <section>
+        {todo.map((todos: ITodo, index: number) => {
+          return (
+            <div>
+              <p>{ todos.text }</p>
+              <p>{ todos.completed }</p>
+            </div>
+          )
+        })}
+      </section>
     </React.Fragment>
   )
 }
