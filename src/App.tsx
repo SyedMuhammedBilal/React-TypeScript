@@ -24,6 +24,13 @@ const App:React.FC = () => {
     const newTodo: ITodo[] = [...todo, {text, completed: false}];
     setTodo(newTodo);
   }
+
+  const completeTodo = (index: number) => {
+    const newTodo: ITodo[] = [...todo];
+    newTodo[index].completed = !newTodo[index].completed;
+    setTodo(newTodo);
+  };
+
   console.log(todo);
 
   return (
@@ -36,9 +43,11 @@ const App:React.FC = () => {
       <section>
         {todo.map((todos: ITodo, index: number) => {
           return (
-            <div>
+            <div key={index}>
               <p>{ todos.text }</p>
-              <p>{ todos.completed }</p>
+              <button type='button' onClick={() => completeTodo(index)} >{
+                todos.completed ? 'Incomplete' : 'Completed'
+              }</button>
             </div>
           )
         })}
